@@ -5,7 +5,10 @@
  */
 package com.mycompany.cristoebay;
 
+import java.sql.PreparedStatement;
+import java.sql.ResultSet;
 import java.time.LocalDate;
+import java.time.LocalDateTime;
 
 /**
  *
@@ -14,11 +17,30 @@ import java.time.LocalDate;
 public class Subastar {
     private int IDUsuario;
     private int IDArticulo;
-    private LocalDate Hora_inicio;
-    private LocalDate Hora_fin;
+    private String Hora_fin;
     private String Estado;
     private int PrecioSalida;
 
+    public Subastar(String f,String e, int p){
+        Hora_fin=f;
+        Estado=e;
+        PrecioSalida=p;
+    }
+    public Subastar(){
+        
+    }
+    public void añadirSubasta(Subastar a){
+        try{
+            Conexion con = new Conexion();
+            ResultSet rs;
+            rs = con.getConexion().executeQuery("SELECT id_articulo FROM Articulo");
+            rs.first();
+            con.getConexion().executeQuery("INSERT INTO Subastar(id_articulo,fecha_fin,estado,precio_salida) VALUES('"+Integer.valueOf(rs.getInt(1))+"','"+a.getHora_fin().toString()+"','"+a.getEstado().toString()+"','"+a.getPrecioSalida()+"')");
+            con.getConexion().close();
+        }catch(Exception e){ 
+            System.out.println(e);
+        }
+    }
     public int getIDUsuario() {
         return IDUsuario;
     }
@@ -35,19 +57,11 @@ public class Subastar {
         this.IDArticulo = IDArticulo;
     }
 
-    public LocalDate getHora_inicio() {
-        return Hora_inicio;
-    }
-
-    public void setHora_inicio(LocalDate Hora_inicio) {
-        this.Hora_inicio = Hora_inicio;
-    }
-
-    public LocalDate getHora_fin() {
+    public String getHora_fin() {
         return Hora_fin;
     }
 
-    public void setHora_fin(LocalDate Hora_fin) {
+    public void setHora_fin(String Hora_fin) {
         this.Hora_fin = Hora_fin;
     }
 

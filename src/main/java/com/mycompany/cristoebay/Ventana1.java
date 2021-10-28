@@ -7,6 +7,14 @@ package com.mycompany.cristoebay;
 
 import java.awt.event.ActionEvent;
 import java.awt.event.ActionListener;
+
+import java.time.LocalDate;
+import java.time.LocalDateTime;
+import java.time.LocalTime;
+import java.time.Month;
+import java.time.Period;
+import java.time.temporal.ChronoUnit;
+import java.util.Date;
 import javax.swing.JTable;
 import javax.swing.table.DefaultTableModel;
 
@@ -35,41 +43,124 @@ public class Ventana1 extends javax.swing.JFrame {
 
         jTabbedPane1 = new javax.swing.JTabbedPane();
         jPanel1 = new javax.swing.JPanel();
-        jScrollPane2 = new javax.swing.JScrollPane();
-        jTable2 = new javax.swing.JTable();
+        jPanel2 = new javax.swing.JPanel();
+        Nombre_Articulo_Nuevo = new javax.swing.JTextField();
+        jLabel1 = new javax.swing.JLabel();
+        jLabel2 = new javax.swing.JLabel();
+        jScrollPane1 = new javax.swing.JScrollPane();
+        Descripcion_Articulo_Nuevo = new javax.swing.JTextArea();
+        jLabel3 = new javax.swing.JLabel();
+        Imagen_Articulo_Nuevo = new javax.swing.JTextField();
+        Boton_Crear_Subasta = new javax.swing.JButton();
+        jButton2 = new javax.swing.JButton();
+        jLabel4 = new javax.swing.JLabel();
+        Campo_Precio_Salida = new javax.swing.JTextField();
 
         setDefaultCloseOperation(javax.swing.WindowConstants.EXIT_ON_CLOSE);
 
-        jTable2.setModel(new javax.swing.table.DefaultTableModel(
-            new Object [][] {
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null},
-                {null, null, null, null}
-            },
-            new String [] {
-                "Title 1", "Title 2", "Title 3", "Title 4"
+        Nombre_Articulo_Nuevo.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Nombre_Articulo_NuevoActionPerformed(evt);
             }
-        ));
-        jScrollPane2.setViewportView(jTable2);
+        });
+
+        jLabel1.setText("Nombre");
+
+        jLabel2.setText("Descripción");
+
+        Descripcion_Articulo_Nuevo.setColumns(20);
+        Descripcion_Articulo_Nuevo.setRows(5);
+        jScrollPane1.setViewportView(Descripcion_Articulo_Nuevo);
+
+        jLabel3.setText("Imagen:");
+
+        Imagen_Articulo_Nuevo.setText("Imagen");
+
+        Boton_Crear_Subasta.setText("Crear");
+        Boton_Crear_Subasta.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Boton_Crear_SubastaActionPerformed(evt);
+            }
+        });
+
+        jButton2.setText("Cancelar");
+
+        jLabel4.setText("Precio Salida");
+
+        Campo_Precio_Salida.addActionListener(new java.awt.event.ActionListener() {
+            public void actionPerformed(java.awt.event.ActionEvent evt) {
+                Campo_Precio_SalidaActionPerformed(evt);
+            }
+        });
+
+        javax.swing.GroupLayout jPanel2Layout = new javax.swing.GroupLayout(jPanel2);
+        jPanel2.setLayout(jPanel2Layout);
+        jPanel2Layout.setHorizontalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addContainerGap()
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                    .addComponent(Nombre_Articulo_Nuevo)
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addComponent(Boton_Crear_Subasta)
+                        .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                        .addComponent(jButton2, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE))
+                    .addGroup(jPanel2Layout.createSequentialGroup()
+                        .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                            .addComponent(jLabel1)
+                            .addComponent(jLabel2)
+                            .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                            .addGroup(jPanel2Layout.createSequentialGroup()
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel3)
+                                    .addComponent(Imagen_Articulo_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                                .addGap(26, 26, 26)
+                                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+                                    .addComponent(jLabel4)
+                                    .addComponent(Campo_Precio_Salida, javax.swing.GroupLayout.PREFERRED_SIZE, 42, javax.swing.GroupLayout.PREFERRED_SIZE))))
+                        .addGap(0, 23, Short.MAX_VALUE))))
+        );
+        jPanel2Layout.setVerticalGroup(
+            jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
+            .addGroup(jPanel2Layout.createSequentialGroup()
+                .addGap(16, 16, 16)
+                .addComponent(jLabel1)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(Nombre_Articulo_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addComponent(jLabel2)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addComponent(jScrollPane1, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(jLabel3)
+                    .addComponent(jLabel4))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.RELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Imagen_Articulo_Nuevo, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                    .addComponent(Campo_Precio_Salida, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addPreferredGap(javax.swing.LayoutStyle.ComponentPlacement.UNRELATED)
+                .addGroup(jPanel2Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.BASELINE)
+                    .addComponent(Boton_Crear_Subasta)
+                    .addComponent(jButton2))
+                .addContainerGap(49, Short.MAX_VALUE))
+        );
 
         javax.swing.GroupLayout jPanel1Layout = new javax.swing.GroupLayout(jPanel1);
         jPanel1.setLayout(jPanel1Layout);
         jPanel1Layout.setHorizontalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
             .addGroup(javax.swing.GroupLayout.Alignment.TRAILING, jPanel1Layout.createSequentialGroup()
-                .addGap(0, 20, Short.MAX_VALUE)
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 375, javax.swing.GroupLayout.PREFERRED_SIZE))
+                .addContainerGap(82, Short.MAX_VALUE)
+                .addComponent(jPanel2, javax.swing.GroupLayout.PREFERRED_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.PREFERRED_SIZE)
+                .addGap(114, 114, 114))
         );
         jPanel1Layout.setVerticalGroup(
             jPanel1Layout.createParallelGroup(javax.swing.GroupLayout.Alignment.LEADING)
-            .addGroup(jPanel1Layout.createSequentialGroup()
-                .addContainerGap()
-                .addComponent(jScrollPane2, javax.swing.GroupLayout.PREFERRED_SIZE, 137, javax.swing.GroupLayout.PREFERRED_SIZE)
-                .addContainerGap(149, Short.MAX_VALUE))
+            .addComponent(jPanel2, javax.swing.GroupLayout.Alignment.TRAILING, javax.swing.GroupLayout.DEFAULT_SIZE, javax.swing.GroupLayout.DEFAULT_SIZE, Short.MAX_VALUE)
         );
 
-        jTabbedPane1.addTab("tab1", jPanel1);
+        jTabbedPane1.addTab("Crear Subasta", jPanel1);
 
         javax.swing.GroupLayout layout = new javax.swing.GroupLayout(getContentPane());
         getContentPane().setLayout(layout);
@@ -84,6 +175,18 @@ public class Ventana1 extends javax.swing.JFrame {
 
         pack();
     }// </editor-fold>//GEN-END:initComponents
+
+    private void Nombre_Articulo_NuevoActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Nombre_Articulo_NuevoActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Nombre_Articulo_NuevoActionPerformed
+
+    private void Boton_Crear_SubastaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Boton_Crear_SubastaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Boton_Crear_SubastaActionPerformed
+
+    private void Campo_Precio_SalidaActionPerformed(java.awt.event.ActionEvent evt) {//GEN-FIRST:event_Campo_Precio_SalidaActionPerformed
+        // TODO add your handling code here:
+    }//GEN-LAST:event_Campo_Precio_SalidaActionPerformed
 
     /**
      * @param args the command line arguments
@@ -112,12 +215,15 @@ public class Ventana1 extends javax.swing.JFrame {
         java.awt.EventQueue.invokeLater(new Runnable() {
             public void run() {
                 new Ventana1().setVisible(true);
-            Boton_Anadir_Articulo.addActionListener(new ActionListener(){
+            Boton_Crear_Subasta.addActionListener(new ActionListener(){
 
             @Override
             public void actionPerformed(ActionEvent e) {
+                String strAf = LocalDate.from(LocalDate.now().plusDays(1)).toString().concat(" "+LocalTime.now().toString());
                 Articulo a = new Articulo();
-                a.añadirArticulo(new Articulo(1,Nombre_Articulo_Nuevo.getText(),Descripcion_Articulo_Nuevo.getText(),Imagen_Articulo_Nuevo.getText()));
+                a.añadirArticulo(new Articulo(Nombre_Articulo_Nuevo.getText(),Descripcion_Articulo_Nuevo.getText(),Imagen_Articulo_Nuevo.getText()));
+                Subastar s = new Subastar();
+                s.añadirSubasta(new Subastar(strAf,"Abierta",Integer.valueOf(Campo_Precio_Salida.getText())));
             }
         });
             }
@@ -128,10 +234,20 @@ public class Ventana1 extends javax.swing.JFrame {
     
 
     // Variables declaration - do not modify//GEN-BEGIN:variables
+    private static javax.swing.JButton Boton_Crear_Subasta;
+    private static javax.swing.JTextField Campo_Precio_Salida;
+    private static javax.swing.JTextArea Descripcion_Articulo_Nuevo;
+    private static javax.swing.JTextField Imagen_Articulo_Nuevo;
+    private static javax.swing.JTextField Nombre_Articulo_Nuevo;
+    private javax.swing.JButton jButton2;
+    private javax.swing.JLabel jLabel1;
+    private javax.swing.JLabel jLabel2;
+    private javax.swing.JLabel jLabel3;
+    private javax.swing.JLabel jLabel4;
     private javax.swing.JPanel jPanel1;
-    private javax.swing.JScrollPane jScrollPane2;
+    private javax.swing.JPanel jPanel2;
+    private javax.swing.JScrollPane jScrollPane1;
     private javax.swing.JTabbedPane jTabbedPane1;
-    private javax.swing.JTable jTable2;
     // End of variables declaration//GEN-END:variables
     DefaultTableModel modelo = new DefaultTableModel();
     JTable jTable1 = new JTable(modelo);

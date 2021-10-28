@@ -20,8 +20,7 @@ public class Articulo {
     private String Imagen;
     private ArrayList<Articulo> ListaArticulos;
     
-    public Articulo(int i,String n,String d, String im){
-        IDArticulo=i;
+    public Articulo(String n,String d, String im){
         Nombre=n;
         Descripcion=d;
         Imagen=im;
@@ -32,9 +31,7 @@ public class Articulo {
     public void añadirArticulo(Articulo a){
         try{
             Conexion con = new Conexion();
-            PreparedStatement pStmt = null;
-            ResultSet rs = con.getConexion().executeQuery("select ID_Articulo from Articulo");
-            con.getConexion().executeQuery("INSERT INTO Articulo(nombre_articulo,descripcion,imagen) VALUES('"+a.getNombre().toString()+"','"+a.getDescripcion().toString()+"','"+a.getImagen().toString()+"')");
+            con.getConexion().executeQuery("INSERT INTO Articulo(nombre,descripcion,imagen) VALUES('"+a.getNombre().toString()+"','"+a.getDescripcion().toString()+"','"+a.getImagen().toString()+"')");
             con.getConexion().close();
         }catch(Exception e){ 
             System.out.println(e);
