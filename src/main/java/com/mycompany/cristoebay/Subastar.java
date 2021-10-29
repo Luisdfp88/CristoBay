@@ -9,6 +9,7 @@ import java.sql.PreparedStatement;
 import java.sql.ResultSet;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
+import java.util.ArrayList;
 
 /**
  *
@@ -17,29 +18,48 @@ import java.time.LocalDateTime;
 public class Subastar {
     private int IDUsuario;
     private int IDArticulo;
+    private String Hora_inicio;
     private String Hora_fin;
     private String Estado;
-    private int PrecioSalida;
+    private int puja_inicial;
+    private ArrayList Componentes_subastas;
 
     public Subastar(String f,String e, int p){
         Hora_fin=f;
         Estado=e;
-        PrecioSalida=p;
+        puja_inicial=p;
     }
     public Subastar(){
         
     }
+    public Subastar(int IU, int IA, int pi, int pa, String hi, String hf){
+        IDUsuario=IU;
+        IDArticulo=IA;
+        puja_inicial=pi;
+        puja_actual=pa;
+        
+    }
     public void añadirSubasta(Subastar a){
         try{
+            
             Conexion con = new Conexion();
-            ResultSet rs;
-            rs = con.getConexion().executeQuery("SELECT id_articulo FROM Articulo");
+            ResultSet rs = con.getConexion().executeQuery("SELECT max(id_articulo)4 FROM Articulo"); 
             rs.first();
-            con.getConexion().executeQuery("INSERT INTO Subastar(id_articulo,fecha_fin,estado,precio_salida) VALUES('"+Integer.valueOf(rs.getInt(1))+"','"+a.getHora_fin().toString()+"','"+a.getEstado().toString()+"','"+a.getPrecioSalida()+"')");
+            con.getConexion().executeQuery("INSERT INTO Subastar(id_articulo,fecha_fin,estado,precio_salida) VALUES('"+(rs.getInt(1))+"','"+a.getHora_fin().toString()+"','"+a.getEstado().toString()+"','"+a.getPrecioSalida()+"')");
             con.getConexion().close();
         }catch(Exception e){ 
             System.out.println(e);
         }
+    }
+    public void getAllSubastas(){
+        try{
+            Conexion con = new Conexion();
+            ResultSet rs = con.getConexion().executeQuery("SELECT * FROM subastar");
+            
+        }catch(Exception e){}
+    }
+    public int getCantidadSubastas(){
+        return CantidadSubastas.size();
     }
     public int getIDUsuario() {
         return IDUsuario;

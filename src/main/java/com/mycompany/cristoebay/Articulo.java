@@ -33,6 +33,7 @@ public class Articulo {
             Conexion con = new Conexion();
             con.getConexion().executeQuery("INSERT INTO Articulo(nombre,descripcion,imagen) VALUES('"+a.getNombre().toString()+"','"+a.getDescripcion().toString()+"','"+a.getImagen().toString()+"')");
             con.getConexion().close();
+            
         }catch(Exception e){ 
             System.out.println(e);
         }
