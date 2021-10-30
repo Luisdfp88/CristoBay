@@ -5,6 +5,10 @@
  */
 package com.mycompany.cristoebay;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
+import java.util.ArrayList;
+
 /**
  *
  * @author Luis
@@ -17,11 +21,30 @@ public class Usuario {
     private String Nombre;
     private String Apellidos;
     private String Correo;
+    private ArrayList IDs = new ArrayList();
 
     public int getIDUsuario() {
         return IDUsuario;
     }
-
+    public ArrayList getArrayUsuarios() throws SQLException{
+        ArrayList ar = new ArrayList();
+        Conexion con = new Conexion();
+        ResultSet rsU = con.getConexion().executeQuery("SELECT * FROM Usuario");
+        while(rsU.next()){
+            ar.add(rsU.getString("nombre"));
+        }
+        con.getConexion().close();
+        return ar;
+    }
+    public ArrayList getIDUsuarios() throws SQLException{
+        ArrayList ar = new ArrayList();
+        Conexion con = new Conexion();
+        ResultSet rsU = con.getConexion().executeQuery("SELECT * FROM Usuario");
+        while(rsU.next()){
+            IDs.add(rsU.getInt("id_usuario"));
+        }
+        return IDs;
+    }
     public void setIDUsuario(int IDUsuario) {
         this.IDUsuario = IDUsuario;
     }

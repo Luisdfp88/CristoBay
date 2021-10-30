@@ -57,7 +57,7 @@ public class MiModelo {
         i=0;
         rsf.beforeFirst();
         while (rsf.next()) {
-            String pujFn = rsf.getString("Puja_Actual");
+            String pujFn = rsf.getString("cantidad_pujada");
             data[i][3] = pujFn;
             i++;
         }
@@ -75,6 +75,8 @@ public class MiModelo {
         data[i][5] = ff;
         i++;
         }
+        con.getConexion().close();
         return new DefaultTableModel(data,columns);
     }
 }
+    

@@ -7,6 +7,7 @@ package com.mycompany.cristoebay;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
 import java.time.LocalDateTime;
 import java.util.ArrayList;
@@ -22,8 +23,11 @@ public class Subastar {
     private String Hora_fin;
     private String Estado;
     private int puja_inicial;
-    private ArrayList Componentes_subastas;
-    private ArrayList TotalSubastas;
+    private ArrayList Componentes_subastas = new ArrayList();
+    private ArrayList TotalSubastas = new ArrayList();
+    private ArrayList FIA = new ArrayList();
+    private ArrayList FFA = new ArrayList();
+    private ArrayList<Integer> PIA = new ArrayList();
 
     public Subastar(String f,String e, int p){
         Hora_fin=f;
@@ -32,6 +36,24 @@ public class Subastar {
     }
     public Subastar(){
         
+    }
+    public ArrayList getArrayFI() throws SQLException{
+        Conexion con = new Conexion();
+        ResultSet rsfi = con.getConexion().executeQuery("SELECT fecha_inicio FROM subastar");
+        while(rsfi.next()){
+            FIA.add(rsfi.getString("fecha_inicio"));
+        }
+        con.getConexion().close();
+        return FIA;
+    }
+    public ArrayList getArrayFF() throws SQLException{
+        Conexion con = new Conexion();
+        ResultSet rsfi = con.getConexion().executeQuery("SELECT fecha_fin FROM subastar");
+        while(rsfi.next()){
+            FFA.add(rsfi.getString("fecha_fin"));
+        }
+        con.getConexion().close();
+        return FFA;
     }
     public Subastar(int IU, int IA, int pi, String hi, String hf){
         IDUsuario=IU;
@@ -92,6 +114,15 @@ public class Subastar {
 
     public int getPrecioSalida() {
         return puja_inicial;
+    }
+    public ArrayList<Integer> getArrayPI() throws SQLException{
+        Conexion con = new Conexion();
+        ResultSet rsfi = con.getConexion().executeQuery("SELECT * FROM subastar");
+        while(rsfi.next()){
+            PIA.add(Integer.valueOf(rsfi.getString("precio_salida")));
+        }
+        con.getConexion().close();
+        return PIA;
     }
 
     public void setPrecioSalida(int PrecioSalida) {

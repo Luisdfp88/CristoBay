@@ -7,6 +7,7 @@ package com.mycompany.cristoebay;
 
 import java.sql.PreparedStatement;
 import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.util.ArrayList;
 
 /**
@@ -19,6 +20,7 @@ public class Articulo {
     private String Descripcion;
     private String Imagen;
     private ArrayList<Articulo> ListaArticulos;
+    private ArrayList IDs = new ArrayList();
     
     public Articulo(String n,String d, String im){
         Nombre=n;
@@ -46,8 +48,28 @@ public class Articulo {
         this.IDArticulo = IDArticulo;
     }
 
-    public String getNombre() {
+    public String getNombre()  {
         return Nombre;
+    }
+    public ArrayList getArrayNombres() throws SQLException {
+        ArrayList ar = new ArrayList();
+        Conexion con = new Conexion();
+        ResultSet rs = con.getConexion().executeQuery("SELECT * FROM articulo");
+        while(rs.next()){
+            ar.add(rs.getString("nombre"));
+        }
+        con.getConexion().close();
+        return ar;
+    }
+    public ArrayList getArrayIDs() throws SQLException {
+        ArrayList ar = new ArrayList();
+        Conexion con = new Conexion();
+        ResultSet rs = con.getConexion().executeQuery("SELECT * FROM articulo");
+        while(rs.next()){
+            IDs.add(rs.getString("id_articulo"));
+        }
+        con.getConexion().close();
+        return IDs;
     }
 
     public void setNombre(String Nombre) {
@@ -57,7 +79,16 @@ public class Articulo {
     public String getDescripcion() {
         return Descripcion;
     }
-
+    public ArrayList getDescripcionArt() throws SQLException {
+        Conexion con = new Conexion();
+        ResultSet rs = con.getConexion().executeQuery("SELECT descripcion FROM articulo");
+        ArrayList str = new ArrayList();
+        while(rs.next()){
+            str.add(rs.getString("descripcion"));
+        }
+        con.getConexion().close();
+        return str;
+    }
     public void setDescripcion(String Descripcion) {
         this.Descripcion = Descripcion;
     }
@@ -65,9 +96,20 @@ public class Articulo {
     public String getImagen() {
         return Imagen;
     }
+    public ArrayList getArrayImagenes() throws SQLException{
+        Conexion con = new Conexion();
+        ResultSet rs = con.getConexion().executeQuery("SELECT imagen FROM articulo");
+        ArrayList str = new ArrayList();
+        while(rs.next()){
+            str.add(rs.getString("imagen"));
+        }
+        con.getConexion().close();
+        return str;
+    }
 
     public void setImagen(String Imagen) {
         this.Imagen = Imagen;
     }
-    
 }
+    
+

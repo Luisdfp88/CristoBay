@@ -5,26 +5,74 @@
  */
 package com.mycompany.cristoebay;
 
+import java.sql.ResultSet;
+import java.sql.SQLException;
 import java.time.LocalDate;
+import java.util.ArrayList;
 
 /**
  *
  * @author Luis
  */
 public class Pujar {
-    private LocalDate Hora_puja;
+    private String Hora_puja;
     private int IDUsuario;
     private int IDArticulo;
     private LocalDate Hora_Inicio;
     private LocalDate Hora_Fin;
     private int CantidadPujada;
     private int Puja_maxima;
+    private ArrayList<Integer> cmp = new ArrayList();
+    private ArrayList<Integer> cmpN = new ArrayList();
 
-    public LocalDate getHora_puja() {
+    public Pujar(String d){
+        Hora_puja=d;
+    }
+    public Pujar(){
+        
+    }
+    public int ComparaPujas() throws SQLException{
+        Conexion con = new Conexion();
+        ResultSet comp = con.getConexion().executeQuery("SELECT * FROM pujar");
+        while(comp.next()){
+            cmpN.add(comp.getInt("id_articulo"));
+            cmp.add(comp.getInt("cantidad_pujada"));
+        }
+        int i = 0;
+        if(cmpN.size()>1){
+        if(cmpN.get(i).equals(cmpN.get(i+1))){
+            if(cmp.get(i)>=cmp.get(i+1)){
+                con.getConexion().executeQuery("DELETE FROM pujar WHERE cantidad_pujada='"+cmp.get(i+1)+"'AND id_articulo='"+cmpN.get(i+1)+"'");
+                con.getConexion().close();
+                return cmp.get(i);
+            }else{
+                con.getConexion().executeQuery("DELETE FROM pujar WHERE cantidad_pujada='"+cmp.get(i)+"'AND id_articulo='"+cmpN.get(i)+"'");
+                con.getConexion().close();
+                return cmp.get(i);
+            }
+        }else{
+            i++;
+        }}else{
+        return cmp.get(i);
+                }
+        con.getConexion().close();
+        return cmp.get(i);
+    }
+    public void añadirPuja(Pujar d, int idU, int idA,String Fi,String Ff,int c){
+        try{
+            Conexion con = new Conexion();
+            con.getConexion().executeQuery("INSERT INTO pujar(fecha_y_hora,id_usuario,id_articulo,fecha_inicio,fecha_fin,cantidad_pujada) VALUES('"+d.getHora_puja().toString()+"','"+idU+"','"+idA+"','"+Fi+"','"+Ff+"','"+c+"')");
+            con.getConexion().close();
+            
+        }catch(Exception e){ 
+            System.out.println(e);
+        }
+    }
+    public String getHora_puja() {
         return Hora_puja;
     }
 
-    public void setHora_puja(LocalDate Hora_puja) {
+    public void setHora_puja(String Hora_puja) {
         this.Hora_puja = Hora_puja;
     }
 
